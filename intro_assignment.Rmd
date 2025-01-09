@@ -4,7 +4,7 @@ output:
   github_document
 ---
 
-The goal of this assignment is to get you warmed up with git, GitHub, markdown, and R. The first few seminars will cover all you need to know for completing this practice assignment. 
+The goal of this assignment is to get you warmed up with git, GitHub, markdown, and R. The first few seminars will cover all you need to know for completing this practice assignment.AnnaHL
 
 Note that this practice assignment, just like the later Analysis Assignment, will need to be done in Rmarkdown (`.Rmd`) because it requires R code. You can start with the `.Rmd` version of this file, and fill it in where necessary. Note that Question 1 asks you to add an additional file. 
 
