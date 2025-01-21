@@ -4,7 +4,7 @@ output:
   github_document
 ---
 
-The goal of this assignment is to get you warmed up with git, GitHub, markdown, and R. The first few seminars will cover all you need to know for completing this practice assignment.AnnaHL
+The goal of this assignment is to get you warmed up with git, GitHub, markdown, and R. The first few seminars will cover all you need to know for completing this practice assignment.AnnaHLA
 
 Note that this practice assignment, just like the later Analysis Assignment, will need to be done in Rmarkdown (`.Rmd`) because it requires R code. You can start with the `.Rmd` version of this file, and fill it in where necessary. Note that Question 1 asks you to add an additional file. 
 
@@ -70,10 +70,20 @@ Answer the following questions by subsetting, printing out the result or by grap
 Find the answers these questions by adding code to the code block below. 
 
 ```{r}
-# YOUR CODE HERE
-```
 
-Replace this text with an explanation of your code output to answer the questions above. 
+#The function data.frame converts the data found in the Titanic file into a nicely structured table.
+titanic_df = data.frame(Titanic) 
+
+#The total number of children on Titanic was found by summing the number in the Freq column if they are categorized as Child in the Age column. The same was done to find the number of adults, by swithing from Child to Adult in the Age column.
+
+children_total = sum(titanic_df$Freq[titanic_df$Age == "Child"])
+adults_total = sum(titanic_df$Freq[titanic_df$Age == "Adult"])
+
+#The total number of male and female adults was found by summing up the number of adults of female and male sex, respectively. It was found that there were more male than female adults on Titanic 'r male_total' men compared to 'r women_total' women.
+
+women_total = sum(titanic_df$Freq[titanic_df$Age == "Adult" & titanic_df$Sex == "Female"])
+men_total = sum(titanic_df$Freq[titanic_df$Age == "Adult" & titanic_df$Sex == "Male"])
+
 
 ### 2.2 Survival (1pt)
 
@@ -86,9 +96,13 @@ Find the answers these questions by adding code to the code block below.
 
 ```{r}
 # YOUR CODE HERE
-```
 
-Replace this text with an explanation of your code output to answer the questions. 
+child_survival = sum(titanic_df$Freq[titanic_df$Age == "Child" & titanic_df$Survived == "Yes"])
+
+
+
+
+eplace this text with an explanation of your code output to answer the questions. 
 
 
 ## 3. Data visualization (2pt)
