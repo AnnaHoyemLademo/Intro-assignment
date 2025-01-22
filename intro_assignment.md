@@ -114,12 +114,39 @@ by graphing.
 
 Find the answers these questions by adding code to the code block below.
 
+#### Making the data frame
+
 ``` r
-# YOUR CODE HERE
+titanic_df = data.frame(Titanic) 
 ```
 
-Replace this text with an explanation of your code output to answer the
-questions above.
+The function data.frame converts the data found in the Titanic file into
+a nicely structured table.
+
+#### Total number of children and adults
+
+``` r
+children_total = sum(titanic_df$Freq[titanic_df$Age == "Child"])
+adults_total = sum(titanic_df$Freq[titanic_df$Age == "Adult"])
+```
+
+The total number of children on Titanic was found by summing the number
+in the Freq column if they are categorized as Child in the Age column.
+The same was done to find the number of adults, by switching from Child
+to Adult in the Age column. Number of children: 109 Number of adults:
+2092
+
+#### Total number of men and women
+
+``` r
+women_total = sum(titanic_df$Freq[titanic_df$Age == "Adult" & titanic_df$Sex == "Female"])
+men_total = sum(titanic_df$Freq[titanic_df$Age == "Adult" & titanic_df$Sex == "Male"])
+```
+
+The total number of male and female adults was found by summing up the
+number of adults of female and male sex, respectively. It was found that
+there were more male than female adults on Titanic. 1667 men compared to
+425 women.
 
 ### 2.2 Survival (1pt)
 
@@ -131,12 +158,51 @@ Using the same data frame, examine the survival rates.
 
 Find the answers these questions by adding code to the code block below.
 
+#### Survival rates for children and adults
+
 ``` r
-# YOUR CODE HERE
+#survival rates for children and adults
+child_survival = sum(titanic_df$Freq[titanic_df$Age == "Child" & titanic_df$Survived == "Yes"])
+adult_survival = sum(titanic_df$Freq[titanic_df$Age == "Adult" & titanic_df$Survived == "Yes"])
+
+survivalrate_children = child_survival/children_total
+survivalrate_adults = adult_survival/adults_total
 ```
 
-Replace this text with an explanation of your code output to answer the
-questions.
+child_survival sums up the number of children that survived and then the
+ratio of child survival was found by dividing by the total number of
+children. The same was done for adults. The survival rate of children
+was then found to be 0.5229358, and for adults it was 0.3126195. So yes,
+the children had higher survival rate than the adults.
+
+#### Survival rates for the different classes
+
+``` r
+#Survival rate for crew
+crew_survival = sum(titanic_df$Freq[titanic_df$Class == "Crew" & titanic_df$Survived == "Yes"])
+crew_total = sum(titanic_df$Freq[titanic_df$Class == "Crew"])
+survivalrate_crew = crew_survival/crew_total
+
+#Survival rate for 1st class
+first_survival = sum(titanic_df$Freq[titanic_df$Class == "1st" & titanic_df$Survived == "Yes"])
+first_total = sum(titanic_df$Freq[titanic_df$Class == "1st"])
+survivalrate_1st = first_survival/first_total
+
+#Survival rate for 2nd class
+second_survival = sum(titanic_df$Freq[titanic_df$Class == "2nd" & titanic_df$Survived == "Yes"])
+second_total = sum(titanic_df$Freq[titanic_df$Class == "2nd"])
+survivalrate_2nd = second_survival/second_total
+
+#Survival rate for 3rd class
+third_survival = sum(titanic_df$Freq[titanic_df$Class == "3rd" & titanic_df$Survived == "Yes"])
+third_total = sum(titanic_df$Freq[titanic_df$Class == "3rd"])
+survivalrate_3rd = third_survival/third_total
+```
+
+The survival rates were forund using the same approach as in the
+previous task. The order of survival rate from worst to best: Crew
+(0.239548) - 3rd Class (0.2521246) - 2nd Class (0.4140351) - 1st Class
+(0.6246154)
 
 ## 3. Data visualization (2pt)
 
@@ -153,9 +219,30 @@ contains data on several variables for a sample of Painted turtles.
 
 Add code to the code block below to complete these tasks.
 
+#### Plot of length vs. width of turtles, including the height (size of points) and sex (colour) variables
+
 ``` r
-# YOUR CODE HERE
+library(ggplot2)
+turtle_df = read.table("https://raw.githubusercontent.com/STAT540-UBC/intro-assignment/main/PaintedTurtles.txt", header = TRUE, sep = "\t")
+
+ggplot(data = turtle_df, aes(x = length, y = width, color = sex, size = height)) + 
+    geom_point() +
+    xlab('Length') + ylab('Width') +
+    scale_color_manual(
+      name = 'Sex',
+      labels = c('Male', 'Female'),
+      values = c('coral2', 'dodgerblue')
+    )
 ```
 
-Replace this text with an explanation of your code output to answer the
-question.
+![](intro_assignment_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+The graph shows the length on the x-axis and the width on the y-axis,
+and we can see that there is a linear relationship between these two
+variables. The same seems to be true for the height, as the points get
+bigger as the turtler are wider and longer (which is what we would
+expect). The sex was also included, and it is evident that the male
+turtles are the biggest ones, while the female ones are smaller. I chose
+to present the data in this way because it clearly pictures the
+relationships between different size variables, as well as the sex
+differences.
